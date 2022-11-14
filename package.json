@@ -14,9 +14,12 @@
   "dependencies": {
     "@react-three/drei": "^9.40.0",
     "@react-three/fiber": "^8.9.1",
+    "@types/three": "^0.146.0",
     "gh-pages": "^4.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "three": "^0.146.0",
+    "vsop87": "^1.0.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",
