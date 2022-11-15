@@ -1,6 +1,19 @@
 body,
 html {
   margin: 0;
+  padding: 0;
+}
+
+.hbox {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.vbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .scene-container {
@@ -13,4 +26,60 @@ html {
 
   overflow: hidden;
   z-index: -10;
+}
+
+.ui-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+
+  height: 100pt;
+
+  //background-color: red;
+  //height: 10px;
+
+  z-index: 1000;
+}
+
+$ui-button-size: 50pt;
+
+$ui-size: min(100vw, 500pt);
+
+.ui-collapsed {
+  height: $ui-button-size;
+  width: $ui-button-size;
+
+  border-radius: 50%;
+  background-color: #21262d;
+  border: 2pt solid gold;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 10pt;
+
+  //cursor: pointer;
+}
+
+.ui {
+  width: $ui-size;
+  height: $ui-size;
+
+  border-radius: 50%;
+
+  transform: translateY(50%);
+
+  background-color: #21262d;
+  border: 2pt solid gold;
+
+  color: #eaeaea;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -1,20 +1,23 @@
 import { Line, OrbitControls, PerspectiveCamera } from "@react-three/drei";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { FunctionComponent, useEffect } from "react";
 import Axes from "./Axes";
-import Sun from "./Sun";
+import SolarSystem from "./SolarSystem";
+
+const REFRESH_DELTA = 20;
 
 const MainScene: FunctionComponent = () => {
   const scene = useThree((state) => state.scene);
   const camera = useThree((state) => state.camera);
+
   useEffect(() => {
     console.log("✅ UseEffect resetting camera position");
 
     // camera.rotateY(Math.PI / 2);
 
-    camera.translateX(1 - camera.position.x);
-    camera.translateY(0.5 - camera.position.y);
-    camera.translateZ(1 - camera.position.z);
+    camera.translateX(2 - camera.position.x);
+    camera.translateY(1 - camera.position.y);
+    camera.translateZ(2 - camera.position.z);
 
     //camera.far = 10000;
     //camera.translateX(500 - camera.position.x);
@@ -22,7 +25,7 @@ const MainScene: FunctionComponent = () => {
 
   return (
     <group rotation={[-Math.PI / 2, 0, -Math.PI / 2]}>
-      <Sun />
+      <SolarSystem />
       <Axes />
     </group>
   );
@@ -35,7 +38,7 @@ const Scene: FunctionComponent = () => {
         <ambientLight />
         <color attach="background" args={["black"]} />
 
-        <OrbitControls autoRotate={true} autoRotateSpeed={0.4} />
+        <OrbitControls />
 
         <MainScene />
       </Canvas>

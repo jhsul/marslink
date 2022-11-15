@@ -1,7 +1,6 @@
 <h1 align="center">Marslink</h1>
 <p align="center">🌎 ➡️ 🛰️ ➡️ ♾️</p>
-
-This repo contains the source code for a simulation and 3D render for a potential Starlink constellation linking Earth and Mars.
+<p align="center">This repo contains code for a simulation and 3D render of a theoretical heliocentric Starlink constellation linking Earth and Mars.</p>
 
 ## Reading
 

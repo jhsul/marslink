@@ -6,6 +6,7 @@ export default defineConfig({
   base: "/marslink/",
   plugins: [react()],
   build: {
+    target: "esnext",
     rollupOptions: {},
   },
 });

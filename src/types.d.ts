@@ -1,5 +1,14 @@
+import React from "react";
+
 export interface AppState {
   time: Date;
+
+  isPlaying: boolean;
+  speed: number;
+
+  // Love this pattern 🙄
+  setIsPlaying: React.Dispatcy<React.SetStateAction<boolean>>;
+  setSpeed: React.Dispatch<React.SetStateAction<number>>;
 
   planetPositions: VSOP87Data;
 }
