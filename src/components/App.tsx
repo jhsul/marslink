@@ -4,15 +4,15 @@ import { AppState, VSOP87Data } from "../types";
 // import { HeliocentricPosition } from "../types";
 
 //@ts-ignore
-import vsop87c from "vsop87/dist/vsop87c";
+//import vsop87c from "vsop87/dist/vsop87c";
 
-//import vsop87cLoader from "vsop87/dist/vsop87c-wasm";
+import vsop87cLoader from "vsop87/dist/vsop87c-wasm";
 
 import Scene from "./Scene";
 import { getJulianDate } from "../orbit";
 import UserInterface from "./UserInterface";
 
-//const vsop87c = await vsop87cLoader;
+const vsop87c = await vsop87cLoader;
 
 const RENDER_DELTA_MS = 20;
 
@@ -41,7 +41,9 @@ const App: FunctionComponent = () => {
     const interval = setInterval(() => {
       if (isPlaying) {
         setTime((t) => {
-          const newTime = new Date(t.getTime() + speed * 86400000);
+          const newTime = new Date(
+            t.getTime() + (speed * 86400000) / RENDER_DELTA_MS
+          );
           return newTime;
         });
       }

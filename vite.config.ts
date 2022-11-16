@@ -5,8 +5,5 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   base: "/marslink/",
   plugins: [react()],
-  build: {
-    target: "esnext",
-    rollupOptions: {},
-  },
+  build: { target: "esnext" },
 });
