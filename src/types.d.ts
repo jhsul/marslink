@@ -7,7 +7,7 @@ export interface AppState {
   speed: number;
 
   // Love this pattern 🙄
-  setIsPlaying: React.Dispatcy<React.SetStateAction<boolean>>;
+  setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
   setSpeed: React.Dispatch<React.SetStateAction<number>>;
 
   planetPositions: VSOP87Data;
