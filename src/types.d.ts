@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Vector3 } from "@react-three/fiber";
 export interface AppState {
   time: Date;
 
@@ -10,13 +10,8 @@ export interface AppState {
   setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
   setSpeed: React.Dispatch<React.SetStateAction<number>>;
 
-  planetPositions: VSOP87Data;
-}
+  earthPosition: Vector3;
+  marsPosition: Vector3;
 
-export interface VSOP87Data {
-  [key: string]: {
-    x: number;
-    y: number;
-    z: number;
-  };
+  satellitePositions: Vector3[];
 }

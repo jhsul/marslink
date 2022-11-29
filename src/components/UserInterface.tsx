@@ -40,6 +40,7 @@ const UserInterface: FunctionComponent = () => {
                 ⏩
               </a>
             </div>
+            <div># of satellites</div>
           </div>
         </div>
       )}

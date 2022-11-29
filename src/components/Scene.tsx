@@ -2,6 +2,7 @@ import { Line, OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { FunctionComponent, useEffect } from "react";
 import Axes from "./Axes";
+import Satellites from "./Satellites";
 import SolarSystem from "./SolarSystem";
 
 const REFRESH_DELTA = 20;
@@ -26,6 +27,7 @@ const MainScene: FunctionComponent = () => {
   return (
     <group rotation={[-Math.PI / 2, 0, -Math.PI / 2]}>
       <SolarSystem />
+      <Satellites />
       <Axes />
     </group>
   );

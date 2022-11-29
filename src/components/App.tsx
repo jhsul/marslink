@@ -1,18 +1,20 @@
 import React from "react";
 import { FunctionComponent, useEffect, useState } from "react";
-import { AppState, VSOP87Data } from "../types";
+import { AppState } from "../types";
 // import { HeliocentricPosition } from "../types";
 
 //@ts-ignore
 //import vsop87c from "vsop87/dist/vsop87c";
 
-import vsop87cLoader from "vsop87/dist/vsop87c-wasm";
-
 import Scene from "./Scene";
-import { getJulianDate } from "../orbit";
+import {
+  getJulianDate,
+  getPlanetPositions,
+  getSatellitePositions,
+} from "../orbits";
 import UserInterface from "./UserInterface";
 
-const vsop87c = await vsop87cLoader;
+import { Vector3 } from "@react-three/fiber";
 
 const RENDER_DELTA_MS = 20;
 
@@ -22,15 +24,19 @@ const App: FunctionComponent = () => {
   const [time, setTime] = useState<Date>(new Date());
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [speed, setSpeed] = useState<number>(1);
-  const [planetPositions, setPlanetPositions] = useState<VSOP87Data>({});
+
+  const [marsPosition, setMarsPosition] = useState<Vector3>([0, 0, 0]);
+  const [earthPosition, setEarthPosition] = useState<Vector3>([0, 0, 0]);
+  // const [planetPositions, setPlanetPositions] = useState<VSOP87Data>({});
+  const [satellitePositions, setSatellitePositions] = useState<Vector3[]>([]);
 
   useEffect(() => {
-    //console.log(`✅ UseEffect updating time: ${time.toDateString()}`);
+    const { earth, mars } = getPlanetPositions(time);
 
-    const data = vsop87c(getJulianDate(time));
+    setEarthPosition(earth);
+    setMarsPosition(mars);
 
-    //console.log(data);
-    setPlanetPositions(data);
+    setSatellitePositions(getSatellitePositions(10, 1));
   }, [time]);
 
   useEffect(() => {
@@ -59,7 +65,9 @@ const App: FunctionComponent = () => {
     <AppStateContext.Provider
       value={{
         time,
-        planetPositions,
+        marsPosition,
+        earthPosition,
+        satellitePositions,
         isPlaying,
         speed,
         setIsPlaying,
