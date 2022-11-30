@@ -15,6 +15,7 @@ import {
 import UserInterface from "./UserInterface";
 
 import { Vector3 } from "@react-three/fiber";
+import DateLabel from "./DateLabel";
 
 const RENDER_DELTA_MS = 20;
 
@@ -30,14 +31,23 @@ const App: FunctionComponent = () => {
   // const [planetPositions, setPlanetPositions] = useState<VSOP87Data>({});
   const [satellitePositions, setSatellitePositions] = useState<Vector3[]>([]);
 
+  const [n, setN] = useState<number>(20);
+  const [r, setR] = useState<number>(1.3);
+
+  const [p, setP] = useState<number>(0);
+
   useEffect(() => {
     const { earth, mars } = getPlanetPositions(time);
 
     setEarthPosition(earth);
     setMarsPosition(mars);
 
-    setSatellitePositions(getSatellitePositions(10, 1));
+    // setSatellitePositions(getSatellitePositions(10, 1));
   }, [time]);
+
+  useEffect(() => {
+    setSatellitePositions(getSatellitePositions(n, r));
+  }, [n, r]);
 
   useEffect(() => {
     console.log(
@@ -72,9 +82,16 @@ const App: FunctionComponent = () => {
         speed,
         setIsPlaying,
         setSpeed,
+        r,
+        n,
+        p,
+        setR,
+        setN,
+        setP,
       }}
     >
       <Scene />
+      <DateLabel />
       <UserInterface />
     </AppStateContext.Provider>
   );

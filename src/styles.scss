@@ -28,6 +28,15 @@ html {
   z-index: -10;
 }
 
+.date-label {
+  position: fixed;
+  top: 4pt;
+  width: 100%;
+  text-align: center;
+  z-index: 1000;
+  color: white;
+}
+
 .ui-container {
   position: fixed;
   bottom: 0;

@@ -8,8 +8,11 @@ const Satellites: FunctionComponent = () => {
     <group>
       {satellitePositions.map((s, idx) => (
         <mesh key={idx} position={s}>
-          <sphereGeometry attach="geometry" args={[SUN_RADIUS_AU, 32, 32]} />
-          <meshStandardMaterial color="green" />
+          <sphereGeometry
+            attach="geometry"
+            args={[SUN_RADIUS_AU / 1.5, 32, 32]}
+          />
+          <meshStandardMaterial color="hotpink" />
         </mesh>
       ))}
     </group>
