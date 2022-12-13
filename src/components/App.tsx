@@ -16,7 +16,7 @@ import UserInterface from "./UserInterface";
 
 import { Vector3 } from "@react-three/fiber";
 import Header from "./Header";
-import { getPath } from "../search";
+import { astarSearch, greedySearch } from "../search";
 
 const RENDER_DELTA_MS = 20;
 
@@ -45,12 +45,14 @@ const App: FunctionComponent = () => {
   // const [planetPositions, setPlanetPositions] = useState<VSOP87Data>({});
   const [satellitePositions, setSatellitePositions] = useState<Vector3[]>([]);
 
+  const [search, setSearch] = useState<"greedy" | "astar">("astar");
+
   const [path, setPath] = useState<Vector3[] | null>(null);
 
   const [shellConfig, setShellConfig] =
     useState<ShellConfig>(DEFAULT_SHELL_CONFIG);
 
-  const [p, setP] = useState<number>(0);
+  const [range, setRange] = useState<number>(0.2);
 
   useEffect(() => {
     const { earth, mars } = getPlanetPositions(time);
@@ -61,10 +63,15 @@ const App: FunctionComponent = () => {
 
     setSatellitePositions(satellites);
 
-    const path = getPath(earth, mars, satellites, 0.3);
+    //const path = greedySearch(earth, mars, satellites, 0.3);
+    const path =
+      search === "astar"
+        ? astarSearch(earth, mars, satellites, range)
+        : greedySearch(earth, mars, satellites, range);
+
     // console.log(path);
     setPath(path);
-  }, [time, shellConfig]);
+  }, [time, shellConfig, search, range]);
 
   useEffect(() => {
     console.log(
@@ -99,10 +106,12 @@ const App: FunctionComponent = () => {
         speed,
         path,
         shellConfig,
-        p,
+        range,
+        search,
+        setSearch,
         setIsPlaying,
         setSpeed,
-        setP,
+        setRange,
         setPath,
         setShellConfig,
       }}

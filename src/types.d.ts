@@ -10,23 +10,18 @@ export interface AppState {
   setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
   setSpeed: React.Dispatch<React.SetStateAction<number>>;
 
-  // /** Number of starlink satellites */
-  // n: number;
-  // setN: React.Dispatch<React.SetStateAction<number>>;
-
-  // /** Radius of the constellation's heliocentric orbit in AU*/
-  // r: number;
-  // setR: React.Dispatch<React.SetStateAction<number>>;
-
   shellConfig: ShellConfig;
   setShellConfig: React.Dispatch<React.SetStateAction<ShellConfig>>;
 
   // energy: number;
   // setEnergy: React.Dispatch<React.SetStateAction<number>>;
 
-  /** Power output of a satellite in watts */
-  p: number;
-  setP: React.Dispatch<React.SetStateAction<number>>;
+  search: "astar" | "greedy";
+  setSearch: React.Dispatch<React.SetStateAction<"astar" | "greedy">>;
+
+  /** Range of a satellite in AU */
+  range: number;
+  setRange: React.Dispatch<React.SetStateAction<number>>;
 
   earthPosition: Vector3;
   marsPosition: Vector3;

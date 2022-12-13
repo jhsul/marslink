@@ -11,7 +11,7 @@ export const midPoint = (a: Vector3, b: Vector3) => {
 /**
  * This is the greedy search algorithm
  */
-export const getPath = (
+export const greedySearch = (
   earth: Vector3,
   mars: Vector3,
   satellites: Vector3[],
@@ -58,4 +58,83 @@ export const getPath = (
   }
 
   return path;
+};
+
+export const astarSearch = (
+  earth: Vector3,
+  mars: Vector3,
+  satellites: Vector3[],
+  maxDist: number
+) => {
+  const openSet = new Set([earth]);
+
+  const cameFrom = new Map<Vector3, Vector3>();
+
+  const nodes = [...satellites, mars, earth];
+
+  // Set up the cost map
+  const gScore = new Map<Vector3, number>();
+  for (const node of nodes) {
+    gScore.set(node, Infinity);
+  }
+  gScore.set(earth, 0);
+
+  // f(n) = g(n) + h(n)
+  const fScore = new Map<Vector3, number>();
+
+  for (const node of nodes) {
+    fScore.set(node, Infinity);
+  }
+  fScore.set(earth, distance(earth, mars));
+
+  while (openSet.size > 0) {
+    // Get the node with the lowest fScore
+    const current = [...openSet].sort(
+      (a, b) => fScore.get(a)! - fScore.get(b)!
+    )[0];
+
+    if (current === mars) {
+      return reconstructPath(cameFrom, current);
+    }
+
+    openSet.delete(current);
+
+    for (const neighbor of getNeighbors(
+      current,
+      new Set([...satellites, mars]),
+      maxDist
+    )) {
+      const tentativeGScore =
+        gScore.get(current)! + distance(current, neighbor);
+
+      if (tentativeGScore < gScore.get(neighbor)!) {
+        cameFrom.set(neighbor, current);
+        gScore.set(neighbor, tentativeGScore);
+        fScore.set(neighbor, tentativeGScore + distance(neighbor, mars));
+        if (!openSet.has(neighbor)) {
+          openSet.add(neighbor);
+        }
+      }
+    }
+  }
+  return null;
+};
+
+const reconstructPath = (cameFrom: Map<Vector3, Vector3>, current: Vector3) => {
+  const totalPath = [current];
+  while (cameFrom.has(current)) {
+    current = cameFrom.get(current)!;
+    totalPath.push(current);
+  }
+  return totalPath;
+};
+
+const getNeighbors = (node: Vector3, nodes: Set<Vector3>, maxDist: number) => {
+  const neighbors = new Set<Vector3>();
+  for (const n of nodes) {
+    if (distance(node, n) <= maxDist) {
+      neighbors.add(n);
+    }
+  }
+  return neighbors;
 };

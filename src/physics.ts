@@ -3,6 +3,7 @@ import { Vector3 } from "@react-three/fiber";
 //@ts-ignore
 import vsop87cLoader from "vsop87/dist/vsop87c-wasm";
 import { AU_KM } from "./main";
+import { distance } from "./search";
 import { ShellConfig } from "./types";
 
 const vsop87c = await vsop87cLoader;
@@ -47,4 +48,10 @@ const getAngularVelocity = (r: number) => {
   return Math.sqrt((G * ME) / r ** 3) / (180 / Math.PI);
 };
 
-const getMaxDistance = (p: number) => {};
+export const getPathLength = (path: Vector3[]) => {
+  let length = 0;
+  for (let i = 0; i < path.length - 1; i++) {
+    length += distance(path[i], path[i + 1]);
+  }
+  return length;
+};

@@ -7,11 +7,13 @@ const UserInterface: FunctionComponent = () => {
   const {
     time,
     isPlaying,
+    search,
+    setSearch,
     setIsPlaying,
     speed,
     setSpeed,
-    p,
-    setP,
+    range,
+    setRange,
     shellConfig,
     setShellConfig,
   } = useContext(AppStateContext);
@@ -61,15 +63,34 @@ const UserInterface: FunctionComponent = () => {
               </a>
             </div>
             <br />
-            <div>p := power output = {p} W</div>
+            <div>beam range = {range} AU</div>
             <input
               type="range"
-              value={p}
-              min="0.1"
+              value={range}
+              min="0.05"
               max="2"
               step="0.05"
-              onChange={(e) => setP(parseFloat(e.currentTarget.value))}
+              onChange={(e) => setRange(parseFloat(e.currentTarget.value))}
             />
+          </div>
+          <div className="hbox">
+            <div>search algorithm: </div>
+            <input
+              type="checkbox"
+              checked={search === "astar"}
+              onChange={(e) => {
+                setSearch(e.currentTarget.checked ? "astar" : "greedy");
+              }}
+            />
+            <div>A*</div>
+            <input
+              type="checkbox"
+              checked={search === "greedy"}
+              onChange={(e) => {
+                setSearch(e.currentTarget.checked ? "greedy" : "astar");
+              }}
+            />
+            <div>greedy</div>
           </div>
           <br />
           <div className="hbox">
