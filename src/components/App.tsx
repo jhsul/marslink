@@ -1,6 +1,6 @@
 import React from "react";
 import { FunctionComponent, useEffect, useState } from "react";
-import { AppState } from "../types";
+import { AppState, ShellConfig } from "../types";
 // import { HeliocentricPosition } from "../types";
 
 //@ts-ignore
@@ -11,13 +11,27 @@ import {
   getJulianDate,
   getPlanetPositions,
   getSatellitePositions,
-} from "../orbits";
+} from "../physics";
 import UserInterface from "./UserInterface";
 
 import { Vector3 } from "@react-three/fiber";
-import DateLabel from "./DateLabel";
+import Header from "./Header";
+import { getPath } from "../search";
 
 const RENDER_DELTA_MS = 20;
+
+const DEFAULT_SHELL_CONFIG: ShellConfig = {
+  currentShell: 0,
+  shells: [
+    { n: 20, r: 0.8 },
+    { n: 20, r: 0.9 },
+    { n: 20, r: 1.1 },
+    { n: 20, r: 1.2 },
+    { n: 20, r: 1.3 },
+    { n: 40, r: 1.4 },
+    { n: 40, r: 1.5 },
+  ],
+};
 
 export const AppStateContext = React.createContext<AppState>({} as AppState);
 
@@ -31,23 +45,26 @@ const App: FunctionComponent = () => {
   // const [planetPositions, setPlanetPositions] = useState<VSOP87Data>({});
   const [satellitePositions, setSatellitePositions] = useState<Vector3[]>([]);
 
-  const [n, setN] = useState<number>(20);
-  const [r, setR] = useState<number>(1.3);
+  const [path, setPath] = useState<Vector3[] | null>(null);
+
+  const [shellConfig, setShellConfig] =
+    useState<ShellConfig>(DEFAULT_SHELL_CONFIG);
 
   const [p, setP] = useState<number>(0);
 
   useEffect(() => {
     const { earth, mars } = getPlanetPositions(time);
+    const satellites = getSatellitePositions(shellConfig, time);
 
     setEarthPosition(earth);
     setMarsPosition(mars);
 
-    // setSatellitePositions(getSatellitePositions(10, 1));
-  }, [time]);
+    setSatellitePositions(satellites);
 
-  useEffect(() => {
-    setSatellitePositions(getSatellitePositions(n, r));
-  }, [n, r]);
+    const path = getPath(earth, mars, satellites, 0.3);
+    // console.log(path);
+    setPath(path);
+  }, [time, shellConfig]);
 
   useEffect(() => {
     console.log(
@@ -80,18 +97,18 @@ const App: FunctionComponent = () => {
         satellitePositions,
         isPlaying,
         speed,
+        path,
+        shellConfig,
+        p,
         setIsPlaying,
         setSpeed,
-        r,
-        n,
-        p,
-        setR,
-        setN,
         setP,
+        setPath,
+        setShellConfig,
       }}
     >
       <Scene />
-      <DateLabel />
+      <Header />
       <UserInterface />
     </AppStateContext.Provider>
   );

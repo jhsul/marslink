@@ -28,13 +28,15 @@ html {
   z-index: -10;
 }
 
-.date-label {
+.header {
   position: fixed;
   top: 4pt;
   width: 100%;
   text-align: center;
   z-index: 1000;
   color: white;
+  display: flex;
+  flex-direction: column;
 }
 
 .ui-container {

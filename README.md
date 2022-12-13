@@ -4,25 +4,26 @@
 
 ## Objective
 
-A 24/7/365 internet connection between Earth and Mars would be cool. Assuming a bidirectional Starlink constellation around both Earth and Mars, a heliocentric constellation could enable a permanent link between the two planets and lay the groundwork for a solar system sized Starlink constellation. This repository contains the source code for a simulation and 3D render of such a constellation with the following inputs:
+A 24/7/365 internet connection between Earth and Mars would be cool. Assuming an existing bidirectional Starlink constellation around both Earth and Mars, a heliocentric constellation could enable a permanent link between the two planets and lay the groundwork for a solar-system-wide network. This repository contains the source code for a simulation and 3D render of such a constellation. The purpose of this project is to create an interactive visualization of this problem. I am also submitting this as my final project for CS577.
+
+## Parameters
+
+The constellation is made up of multiple orbital shells. Each orbital shell is parameterized by two inputs:
 
 - $n :=$ number of satelites in the main constellation
 - $r :=$ radius of the constellation's circular orbit
-- $p :=$ power output of each satellite\*
 
-_\*This power output is also assumed for the satellites making up the Earth and Mars constellations._
+The power output is the same for all satellites in the constellation, and is also specified by the user:
 
-The purpose of this project is to create an interactive visualization of this problem. I am also submitting this as my final project for CS577.
+- $p :=$ power output of each satellite
 
-## Assumptions
+This power output is also assumed for the satellites making up the Earth and Mars constellations. It is used to calculate the `maxDist` parameter used in the routing based on the free-space path loss formula.
 
-These are are some of my current assumptions that I may revisit at a later point:
+## Routing
 
-- I am calculating power draw assuming that all satellites use the Ku-band
-- I am also using a circular orbit with $0\degree$ inclination for the starlink constellation
-- CURRENTLY THE SATELLITES DO NOT ACTUALLY MOVE / HAVE REAL ORBITS; THIS IS A PRIORITY
-- I am not calculating the effect of noise from the Sun
-- _Perhaps most importantly, I am only using a single orbital shell. A more optimal constellation would have multiple shells._
+Routing is done using a greedy-first search algorithm. Each node finds all of the nodes within the radius specified by the `maxDist` parameter, and then chooses the one which is closest to Mars. This is done consecutively until Mars is reached, or there are no neighbors available.
+
+This may not be as optimal of a search as A\*, but I think that it is the natural search algorithm to use in this case, since it theoretically gives each satellite much more autonomy. Since algorithms like A\* require centralized knowledge of the entire constellation and not just the local satellites, it is not
 
 ## Reading
 

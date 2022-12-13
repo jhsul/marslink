@@ -5,7 +5,7 @@ const AXIS_LENGTH = 1;
 
 const Axes: FunctionComponent = () => {
   return (
-    <group>
+    <>
       <Line
         points={[
           [0, 0, 0],
@@ -27,7 +27,7 @@ const Axes: FunctionComponent = () => {
         ]}
         color="blue"
       />
-    </group>
+    </>
   );
 };
 

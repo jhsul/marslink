@@ -2,6 +2,7 @@ import { Line, OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { FunctionComponent, useEffect } from "react";
 import Axes from "./Axes";
+import Path from "./Path";
 import Satellites from "./Satellites";
 import SolarSystem from "./SolarSystem";
 
@@ -28,6 +29,7 @@ const MainScene: FunctionComponent = () => {
     <group rotation={[-Math.PI / 2, 0, -Math.PI / 2]}>
       <SolarSystem />
       <Satellites />
+      <Path />
       <Axes />
     </group>
   );
@@ -36,7 +38,7 @@ const MainScene: FunctionComponent = () => {
 const Scene: FunctionComponent = () => {
   return (
     <div className="scene-container">
-      <Canvas>
+      <Canvas gl={{ preserveDrawingBuffer: true }}>
         <ambientLight />
         <color attach="background" args={["black"]} />
 
