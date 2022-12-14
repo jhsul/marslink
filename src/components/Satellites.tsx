@@ -7,7 +7,8 @@ import { AppStateContext } from "./App";
 const SHELL_SEGMENTS = 100;
 
 const Satellites: FunctionComponent = () => {
-  const { satellitePositions, shellConfig } = useContext(AppStateContext);
+  const { satellitePositions, shellConfig, setShellConfig } =
+    useContext(AppStateContext);
   return (
     <group>
       <>
@@ -30,6 +31,7 @@ const Satellites: FunctionComponent = () => {
                 const theta = (i / SHELL_SEGMENTS) * 2 * Math.PI;
                 return [s.r * Math.cos(theta), s.r * Math.sin(theta), 0];
               })}
+            onClick={() => setShellConfig((sc) => ({ ...sc, currentShell: i }))}
             key={i}
             opacity={0.5}
             transparent

@@ -1,14 +1,9 @@
 <h1 align="center">marslink</h1>
 <p align="center">🌎 → 🛰️ → ♾️</p>
-<p align="center"><i>this is a work in progress; pls dont judge 🥺</i></p>
 
 ## Objective
 
 A 24/7/365 internet connection between Earth and Mars would be cool. Assuming an existing bidirectional Starlink constellation around both Earth and Mars, a heliocentric constellation could enable a permanent link between the two planets and lay the groundwork for a solar-system-wide network. This repository contains the source code for a simulation and 3D render of such a constellation. The purpose of this project is to create an interactive visualization of this problem. I am also submitting this as my final project for CS577.
-
-## Parameters
-
-The constellation is made up of multiple orbital shells. Each orbital shell is parameterized by two inputs:
 
 ## Reading
 
