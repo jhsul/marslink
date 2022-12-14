@@ -159,7 +159,7 @@ const UserInterface: FunctionComponent = () => {
               });
             }}
           />
-          <div>r := constellation radius = {shells[currentShell].r} AU</div>
+          <div>r := orbit radius = {shells[currentShell].r} AU</div>
           <input
             type="range"
             min="0.1"
