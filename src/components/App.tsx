@@ -23,13 +23,11 @@ const RENDER_DELTA_MS = 20;
 const DEFAULT_SHELL_CONFIG: ShellConfig = {
   currentShell: 0,
   shells: [
-    { n: 20, r: 0.8 },
+    { n: 20, r: 0.7 },
     { n: 20, r: 0.9 },
-    { n: 20, r: 1.1 },
-    { n: 20, r: 1.2 },
-    { n: 20, r: 1.3 },
-    { n: 40, r: 1.4 },
-    { n: 40, r: 1.5 },
+    { n: 30, r: 1.1 },
+    { n: 50, r: 1.3 },
+    { n: 50, r: 1.5 },
   ],
 };
 
@@ -37,7 +35,7 @@ export const AppStateContext = React.createContext<AppState>({} as AppState);
 
 const App: FunctionComponent = () => {
   const [time, setTime] = useState<Date>(new Date());
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [speed, setSpeed] = useState<number>(1);
 
   const [marsPosition, setMarsPosition] = useState<Vector3>([0, 0, 0]);
@@ -52,7 +50,7 @@ const App: FunctionComponent = () => {
   const [shellConfig, setShellConfig] =
     useState<ShellConfig>(DEFAULT_SHELL_CONFIG);
 
-  const [range, setRange] = useState<number>(0.2);
+  const [range, setRange] = useState<number>(0.3);
 
   useEffect(() => {
     const { earth, mars } = getPlanetPositions(time);
